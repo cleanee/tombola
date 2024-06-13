@@ -12,7 +12,7 @@ with open('souches.csv', 'r', newline='') as csvfile:
     souche_txt = "{couleur} {numero}"
     # Iterate through the rows in the CSV file
     for row in reader:
-        for i in range(1, int(row['nombre']) + 1):
+        for i in range(int(row['debut']), int(row['fin']) + 1):
             souches.append(souche_txt.format(couleur=row['couleur'], numero=i))
 
 print(souches)
@@ -35,13 +35,12 @@ with open('lots.csv', 'r') as csvfile:
         else:
             distribution.append({'lot': current_lot, 'souche': 'plus de souches'})
 
-
 print(distribution)
 
 with open('distribution.csv', mode='w') as employee_file:
     fieldnames = ['lot', 'souche']
     distribution_writer = csv.DictWriter(employee_file, quoting=csv.QUOTE_MINIMAL,
-                                     fieldnames=fieldnames)
+                                         fieldnames=fieldnames)
     distribution_writer.writeheader()
     for row in distribution:
         distribution_writer.writerow(row)
