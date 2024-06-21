@@ -30,12 +30,12 @@ with open('lots.csv', 'r') as csvfile:
     for row in reader:
         current_lot = row['libelle']
         if souches:
-            distribution.append({'lot': current_lot, 'souche': souches.pop()})
+            distribution.append({'lot': current_lot, 'souche': souches.pop(), 'ok':''})
         else:
-            distribution.append({'lot': current_lot, 'souche': 'plus de souches'})
+            distribution.append({'lot': current_lot, 'souche': 'plus de souches','ok':''})
 
 with open('distribution.csv', mode='w') as employee_file:
-    fieldnames = ['lot', 'souche']
+    fieldnames = ['lot', 'souche','ok']
     distribution_writer = csv.DictWriter(employee_file, quoting=csv.QUOTE_MINIMAL,
                                          fieldnames=fieldnames)
     distribution_writer.writeheader()
