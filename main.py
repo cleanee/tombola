@@ -2,7 +2,6 @@ import csv
 import random
 
 souches = []
-
 # Open the CSV file in read mode
 with open('souches.csv', 'r', newline='') as csvfile:
     # Create a reader object
@@ -15,12 +14,10 @@ with open('souches.csv', 'r', newline='') as csvfile:
         fin = int(row['fin']) + 1
         if debut > 0:
             for i in range(debut, fin):
-                souches.append(souche_txt.format(couleur=row['couleur'], numero=i));
+                souches.append(souche_txt.format(couleur=row['couleur'], numero=i))
 
-print(souches)
+vendu = len(souches)
 random.shuffle(souches)
-
-print(souches)
 
 distribution = []
 
@@ -37,8 +34,6 @@ with open('lots.csv', 'r') as csvfile:
         else:
             distribution.append({'lot': current_lot, 'souche': 'plus de souches'})
 
-print(distribution)
-
 with open('distribution.csv', mode='w') as employee_file:
     fieldnames = ['lot', 'souche']
     distribution_writer = csv.DictWriter(employee_file, quoting=csv.QUOTE_MINIMAL,
@@ -46,3 +41,6 @@ with open('distribution.csv', mode='w') as employee_file:
     distribution_writer.writeheader()
     for row in distribution:
         distribution_writer.writerow(row)
+
+print("nombre de lots distribuées {lots}.".format(lots=len(distribution)))
+print("nombre de billets vendus {vendu}.".format(vendu=vendu))
