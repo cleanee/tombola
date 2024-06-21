@@ -1,6 +1,5 @@
 import csv
 import random
-from struct import Struct
 
 souches = []
 
@@ -12,8 +11,11 @@ with open('souches.csv', 'r', newline='') as csvfile:
     souche_txt = "{couleur} {numero}"
     # Iterate through the rows in the CSV file
     for row in reader:
-        for i in range(int(row['debut']), int(row['fin']) + 1):
-            souches.append(souche_txt.format(couleur=row['couleur'], numero=i))
+        debut = int(row['debut'])
+        fin = int(row['fin']) + 1
+        if debut > 0:
+            for i in range(debut, fin):
+                souches.append(souche_txt.format(couleur=row['couleur'], numero=i));
 
 print(souches)
 random.shuffle(souches)
